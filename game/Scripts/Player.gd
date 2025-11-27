@@ -6,6 +6,9 @@ extends CharacterBody2D
 @onready var hunger_bar: Node = get_node("../UI_Player/HungerBar")
 @onready var health_bar: Node = get_node("../UI_Player/HealthBar")
 
+
+@export var inventory: Inventory
+
 func get_handle_input():
 	var input_direction: Vector2 = Input.get_vector("move_left", "move_right","move_up","move_down")
 	velocity = input_direction *speed

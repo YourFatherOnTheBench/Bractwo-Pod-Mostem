@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://b5qt64pprnyip"]
+
+[ext_resource type="Script" uid="uid://ck0wnjbj6x0fw" path="res://inventory/inventory_item.gd" id="1_db1wg"]
+[ext_resource type="Texture2D" uid="uid://c3uqr7djw7tse" path="res://Art/zomo-stick.png" id="2_db1wg"]
+
+[resource]
+script = ExtResource("1_db1wg")
+name = "zomo-stick"
+texture = ExtResource("2_db1wg")
+metadata/_custom_type_script = "uid://ck0wnjbj6x0fw"

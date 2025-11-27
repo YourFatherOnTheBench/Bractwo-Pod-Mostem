@@ -9,8 +9,8 @@ var player_in_range: bool = false
 
 @export var district: String = "residential"  
 
-var items: Dictionary[Variant, Variant] = {}           
-var loot_pools: Dictionary[Variant, Variant] = {}     
+var items = {}           # accept any parsed JSON (Array or Dictionary)
+var loot_pools = {}     
 
 var wait_time: float = 12.0
 var progress: float = 0.0
@@ -76,12 +76,21 @@ func _reset_search_ui():
 		search_ui.visible = false
 		
 		
-func load_json(path) -> Dictionary[Variant, Variant]:
+func load_json(path):
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file: 
 		return {}
-	return JSON.parse_string(file.get_as_text())
-	
+	var text = file.get_as_text()
+	var parsed = JSON.parse_string(text)
+
+	if typeof(parsed) == TYPE_DICTIONARY and parsed.has("error"):
+		if parsed.error != OK:
+			printerr("Failed to parse JSON: %s" % parsed.error_string)
+			return {}
+		return parsed.result
+	# parsed is already the result (Array or Dictionary)
+	return parsed
+
 	
 	
 #o tym nie rozmawiamy ( ochujtuzapierdala )
@@ -91,20 +100,20 @@ func _ready():
 	items = load_json("res://Data/items.json")
 	loot_pools = load_json("res://Data/loot_pools.json")
 	if typeof(items) == TYPE_ARRAY:
-		var d: Dictionary[Variant, Variant] = {}
+		var d: Dictionary = {}
 		for e in items:
 			if e.has("id"):
 				d[e.id] = e
 		items = d
-		
+
 	if choice_ui and not choice_ui.is_connected("chosen", Callable(self, "_on_choice_chosen")):
 		choice_ui.connect("chosen", Callable(self, "_on_choice_chosen"))
-	
+
 	print("items typeof:", typeof(items), " size:", items.size())
 	print("loot_pools typeof:", typeof(loot_pools), " keys:", loot_pools.keys())
 	
 	#funkcja losuje itemy z jsona i zwraca tablice.
-func pick_unique_weight(pool: Array, count: int) -> Array:
+func pick_unique_weight(pool, count):
 	var bag: Array[Variant] = []
 	for e in pool:
 		#e - entry || w - weight
@@ -118,8 +127,8 @@ func pick_unique_weight(pool: Array, count: int) -> Array:
 		return []
 	bag.shuffle()
 	
-	var result: Array[Variant] = []
-	var seen: Dictionary[Variant, Variant] = {}
+	var result = []
+	var seen = {}
 	for id in bag:
 		if not seen.has(id):
 			seen[id] = true
@@ -129,8 +138,6 @@ func pick_unique_weight(pool: Array, count: int) -> Array:
 				
 	return result
 
-func _on_choice_chosen(id: String):
+func _on_choice_chosen(id):
 	var def = items.get(id, {})
 	print("Wybrałeś:", def.get("name", id))
-	
-	

@@ -1,8 +1,8 @@
 extends CanvasLayer
 
-signal chosen(id: String)
+signal chosen(id)
 
-var _ids: Array[Variant] = []
+var _ids = []
 
 @onready var option1: Button = $Panel/MarginContainer/VBoxContainer/Option1
 @onready var option2: Button = $Panel/MarginContainer/VBoxContainer/Option2
@@ -18,7 +18,7 @@ func _ready():
 	option2.pressed.connect(func(): _on_option_pressed(1))
 	option3.pressed.connect(func(): _on_option_pressed(2))
 
-func show_options(ids: Array, items: Dictionary):
+func show_options(ids, items):
 	_ids = ids.duplicate()
 	visible = true
 	
@@ -26,18 +26,18 @@ func show_options(ids: Array, items: Dictionary):
 	option2.text = _get_label(1, items)
 	option3.text = _get_label(2, items)
 	
-func _get_label(index: int, items: Dictionary) -> String:
+func _get_label(index, items):
 	if index >= _ids.size():
 		return "-"
 	var id = _ids[index]
 	var def = items.get(id, {})
 	return def.get("name", id)
 	
-func _on_option_pressed(index: int):
+func _on_option_pressed(index):
 	if index < _ids.size():
 		var chosen_id = _ids[index]
 		emit_signal("chosen", chosen_id)
 	visible = false
 	_ids.clear()
-func _process(delta):
+func _process(_delta):
 	pass

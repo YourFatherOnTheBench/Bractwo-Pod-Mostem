@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Inventory" load_steps=4 format=3 uid="uid://csd5dgnn2qenj"]
+
+[ext_resource type="Resource" uid="uid://dnc3w48rf0xhw" path="res://inventory/items/bread.tres" id="1_fhgtu"]
+[ext_resource type="Resource" uid="uid://b5qt64pprnyip" path="res://inventory/items/zomo-stick.tres" id="1_ptr4k"]
+[ext_resource type="Script" uid="uid://j7jnigwttbr2" path="res://inventory/inventory.gd" id="2_fhgtu"]
+
+[resource]
+script = ExtResource("2_fhgtu")
+items = [null, ExtResource("1_ptr4k"), ExtResource("1_fhgtu"), null, null, null, ExtResource("1_fhgtu"), ExtResource("1_fhgtu"), null, null, null, null, null, ExtResource("1_ptr4k"), null, null, null, ExtResource("1_ptr4k")]
+metadata/_custom_type_script = "uid://j7jnigwttbr2"
