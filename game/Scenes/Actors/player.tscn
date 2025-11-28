@@ -69,7 +69,6 @@ position_smoothing_speed = 8.0
 autostart = true
 
 [node name="Inventory_UI" parent="." instance=ExtResource("3_87pht")]
-z_index = 5
 offset_left = -256.0
 offset_top = -128.0
 offset_right = -128.0

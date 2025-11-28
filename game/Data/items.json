@@ -3,7 +3,7 @@
 		"id": "bread",
 		"name": "chleb",
 		"type": "food",
-		"hunger_restore":30
+		"hunger_restore": 30.0
 	},
 	{
 		"id": "junk",
@@ -15,30 +15,30 @@
 		"id": "knife",
 		"name": "scyzoryk",
 		"type": "tool",
-		"durability":25
+		"durability": 25.0
 	},
 	{
 		"id": "beer",
 		"name": "piwo",
 		"type": "food",
-		"hunger_restore":10
+		"hunger_restore": 10.0
 	},
 	{
 		"id": "chips",
 		"name": "czipsy",
 		"type": "food",
-		"hunger_restore":15
+		"hunger_restore": 15.0
 	},
 	{
 		"id": "spoon",
 		"name": "lyzka",
 		"type": "tool",
-		"durability":10
+		"durability": 10.0
 	},
 	{
 		"id": "waste",
 		"name": "odpady",
 		"type": "junk",
-		"price":0
-	},
+		"price": 0.0
+	}
 ]

@@ -9,6 +9,7 @@ var _ids = []
 @onready var option3 = $Panel/MarginContainer/VBoxContainer/Option3
 
 
+@export var item: InventoryItem
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,5 +40,8 @@ func _on_option_pressed(index: int):
 		emit_signal("chosen", chosen_id)
 	visible = false
 	_ids.clear()
-func _process(delta):
+
+func _process(_delta):
 	pass
+
+

@@ -1,19 +1,36 @@
 extends Control
 
-@onready var inventory: Inventory = preload("res://inventory/player_inventory.tres")
+var inventory: Inventory = null
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
 
 
 var is_open: bool = false
 
 func _ready() -> void:
+	# prefer the player's inventory if this UI is a child of the player
+	var p := get_parent()
+	if p and p.get("inventory") != null:
+		inventory = p.get("inventory")
+	else:
+		inventory = preload("res://inventory/player_inventory.tres")
+
 	update_slots()
 	close()
 
 
 func update_slots():
-	for i in range(min(inventory.items.size(),slots.size())):
-		slots[i].update(inventory.items[i])
+	if inventory == null:
+		return
+
+	# Inventory keeps its items in `slots: Array[inventorySlot]`.
+	var items_arr = inventory.get("slots")
+	if items_arr == null:
+		items_arr = inventory.get("items")
+	if items_arr == null:
+		return
+
+	for i in range(min(items_arr.size(), slots.size())):
+		slots[i].update(items_arr[i])
 	
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("toggle_inventory"):
@@ -25,8 +42,37 @@ func _process(_delta) -> void:
 func open() -> void:
 	is_open = true
 	visible = true
+	# notify player to block movement while inventory is open
+	var p = _get_player_node()
+	if p:
+		if p.has_method("set_inventory_opened"):
+			p.set_inventory_opened(true)
+		elif p.has_method("set_can_move"):
+			p.call("set_can_move", false)
+		else:
+			# fallback: try to set property if exists
+			if p.has_method("set"):
+				p.set("can_move", false)
+
 	
 	
 func close() -> void:
 	is_open = false
 	visible = false
+	# notify player to restore movement
+	var p = _get_player_node()
+	if p:
+		if p.has_method("set_inventory_opened"):
+			p.set_inventory_opened(false)
+		elif p.has_method("set_can_move"):
+			p.call("set_can_move", true)
+		else:
+			if p.has_method("set"):
+				p.set("can_move", true)
+
+
+func _get_player_node() -> Node:
+	var players: Array = get_tree().get_nodes_in_group("player")
+	if players.size() > 0:
+		return players[0]
+	return null

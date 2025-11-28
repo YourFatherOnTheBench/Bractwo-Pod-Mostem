@@ -10,6 +10,9 @@ extends CharacterBody2D
 
 @export var inventory: Inventory
 
+
+
+
 func get_handle_input():
 	if not can_move:
 		velocity = Vector2.ZERO
@@ -43,3 +46,13 @@ func _on_hunger_timer_timeout():
 
 func _ready():
 	print("Grupy gracza:", get_groups())
+
+
+func collect(item):
+	inventory.insert(item)
+
+
+# Called by UI or other systems to indicate the inventory UI is open/closed.
+# When inventory is open we prevent movement; when closed we restore movement.
+func set_inventory_opened(opened: bool) -> void:
+	can_move = not opened
