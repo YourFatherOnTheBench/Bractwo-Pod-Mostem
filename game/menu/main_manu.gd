@@ -1,41 +1,35 @@
 extends Control
 
-# -- REFERENCES --
-# These must be connected in the inspector or match the node names exactly
-@onready var start_button = $VBoxContainer/StartButton
-@onready var options_button = $VBoxContainer/OptionsButton
-@onready var quit_button = $VBoxContainer/QuitButton
-@onready var options_menu = $OptionsMenu # A Panel or Control node acting as the options overlay
+@onready var start_button = $MainManuButtons/StartButton
+@onready var options_button = $MainManuButtons/OptionsButton
+@onready var quit_button = $MainManuButtons/QuitButton
 
-# Path to your actual game scene
-const GAME_SCENE_PATH = "res://Scenes/main.tscn"
+# This now refers to the Scene Instance
+@onready var options_menu = $OptionsMenu 
 
 func _ready():
-	# Ensure the options menu is hidden when the game starts
-	if options_menu:
-		options_menu.visible = false
+	# Ensure options are hidden at start
+	options_menu.visible = false
 	
-	# Connect signals via code (alternative to using the Editor's Node tab)
 	start_button.pressed.connect(_on_start_pressed)
 	options_button.pressed.connect(_on_options_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
+	
+	# Connect to the custom signal we made in Step 2
+	options_menu.close_options.connect(_on_options_closed)
 
 func _on_start_pressed():
-	# Change the scene to the actual game
-	get_tree().change_scene_to_file(GAME_SCENE_PATH)
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 func _on_options_pressed():
-	# Hide main buttons and show options
-	# You might want to animate this later
-	$VBoxContainer.visible = false
+	$MainManuButtons.visible = false
 	options_menu.visible = true
 
 func _on_quit_pressed():
-	# Quit the game
 	get_tree().quit()
 
-# -- SETTINGS MENU FUNCTIONS --
-# Connect the "Back" button inside your OptionsMenu to this
-func _on_options_back_pressed():
-	options_menu.visible = false
-	$VBoxContainer.visible = true
+# This runs when the Options Menu emits "close_options"
+func _on_options_closed():
+	# Options menu hides itself in its own script, 
+	# so we just need to show the main buttons again.
+	$MainManuButtons.visible = true

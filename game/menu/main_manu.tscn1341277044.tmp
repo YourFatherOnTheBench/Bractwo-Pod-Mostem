@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjxxrcwxxi54m"]
+[gd_scene load_steps=4 format=3 uid="uid://bjxxrcwxxi54m"]
 
 [ext_resource type="Script" uid="uid://kee165voj0s1" path="res://menu/main_manu.gd" id="1_lak45"]
-[ext_resource type="PackedScene" uid="uid://bq2mhbvft4cxx" path="res://menu/options_menu.tscn" id="2_n4o47"]
 
 [sub_resource type="Gradient" id="Gradient_lak45"]
 
@@ -60,5 +59,14 @@ text = "Options"
 layout_mode = 2
 text = "Quit"
 
-[node name="OptionsMenu" parent="." instance=ExtResource("2_n4o47")]
+[node name="OptionsMenu" type="Panel" parent="."]
+visible = false
 layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OptionsBackButton" type="Button" parent="OptionsMenu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
