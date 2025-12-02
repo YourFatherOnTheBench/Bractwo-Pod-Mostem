@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bjxxrcwxxi54m"]
 
-[ext_resource type="Script" uid="uid://kee165voj0s1" path="res://menu/main_manu.gd" id="1_lak45"]
-[ext_resource type="PackedScene" uid="uid://bq2mhbvft4cxx" path="res://menu/options_menu.tscn" id="2_n4o47"]
+[ext_resource type="Script" uid="uid://kee165voj0s1" path="res://menu/main_menu.gd" id="1_f5okj"]
+[ext_resource type="PackedScene" uid="uid://bq2mhbvft4cxx" path="res://menu/options_menu.tscn" id="2_o5w3e"]
 
 [sub_resource type="Gradient" id="Gradient_lak45"]
 
@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("1_lak45")
+script = ExtResource("1_f5okj")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -60,7 +60,7 @@ text = "Options"
 layout_mode = 2
 text = "Quit"
 
-[node name="OptionsMenu" parent="." instance=ExtResource("2_n4o47")]
+[node name="OptionsMenu" parent="." instance=ExtResource("2_o5w3e")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
