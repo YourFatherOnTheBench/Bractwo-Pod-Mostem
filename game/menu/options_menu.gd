@@ -7,6 +7,8 @@ signal close_options
 @onready var window_mode_button: OptionButton = $VideoSettingsContainer/WindowModeContainer/WindowModeOptionButton
 @onready var vsync_button: OptionButton = $VideoSettingsContainer/VSyncContainer/VSyncOptionButton
 
+
+
 const RESOLUTIONS: Dictionary = {
 	"3840 x 2160" : Vector2i(3840, 2160),
 	"2560 x 1440": Vector2i(2560,1440),
@@ -36,10 +38,8 @@ func _ready():
 	add_vsync_modes_to_button()
 	
 	# Resolution Check
-	var current_size = get_window().size
-	var res_values = RESOLUTIONS.values()
-	if current_size in res_values:
-		resolution_button.selected = res_values.find(current_size)
+	if RESOLUTIONS.find_key(get_tree().root.size):
+		resolution_button.selected = Array(RESOLUTIONS.values()).find(get_tree().root.size)
 	else:
 		resolution_button.text = "Custom"
 	
@@ -61,11 +61,12 @@ func _ready():
 
 # Resolution Logic
 func add_resolutions_to_button():
-	var screen_size = DisplayServer.screen_get_size()
+	#var screen_size = DisplayServer.screen_get_size()
 	for res_string in RESOLUTIONS:
-		var res_size = RESOLUTIONS[res_string]
-		if res_size.x <= screen_size.x and res_size.y <= screen_size.y:
-			resolution_button.add_item(res_string)
+		#var res_size = RESOLUTIONS[res_string]
+		#if res_size.x <= screen_size.x and res_size.y <= screen_size.y:
+			#resolution_button.add_item(res_string)
+		resolution_button.add_item(res_string)
 
 func _on_resolution_selected(index: int):
 	var selected_text = resolution_button.get_item_text(index)
@@ -121,3 +122,20 @@ func _on_back_pressed():
 func debug_log(message: String) -> void:
 	if OS.is_debug_build():
 		print_rich("[color=yellow][Settings][/color] " + message)
+		
+@onready var label:RichTextLabel = $RichTextLabel
+
+func _process(_delta):
+	label.clear()
+	label.add_text("DEV log\n")
+	label.add_text("\nFullscreen:")
+	var fsmode = WINDOW_MODES.find_key(get_tree().root.mode)
+	label.add_text(fsmode)
+	
+	label.add_text("\nResolution:")
+	var res = RESOLUTIONS.find_key(get_tree().root.size)
+	label.add_text(res)
+	
+	label.add_text("\nVscync:")
+	var syncmode = VSYNC_MODES.find_key(DisplayServer.window_get_vsync_mode())
+	label.add_text(syncmode)
