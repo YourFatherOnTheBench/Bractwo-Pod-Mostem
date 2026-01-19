@@ -48,7 +48,8 @@ func open() -> void:
 		if p.has_method("set_inventory_opened"):
 			p.set_inventory_opened(true)
 		elif p.has_method("set_can_move"):
-			p.call("set_can_move", false)
+			#p.call("set_can_move", false)
+			pass
 		else:
 			# fallback: try to set property if exists
 			if p.has_method("set"):
@@ -65,7 +66,8 @@ func close() -> void:
 		if p.has_method("set_inventory_opened"):
 			p.set_inventory_opened(false)
 		elif p.has_method("set_can_move"):
-			p.call("set_can_move", true)
+			#p.call("set_can_move", true)
+			pass
 		else:
 			if p.has_method("set"):
 				p.set("can_move", true)

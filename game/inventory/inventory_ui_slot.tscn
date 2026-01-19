@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1v4qyhijbdr3"]
+[gd_scene load_steps=5 format=3 uid="uid://d1v4qyhijbdr3"]
 
 [ext_resource type="Script" uid="uid://cyhx43k3mavj" path="res://inventory/inventory_ui_slot.gd" id="1_uebyi"]
 [ext_resource type="Texture2D" uid="uid://dblighifhe0k3" path="res://Art/inventory_art/item_slot.png" id="2_uebyi"]
+[ext_resource type="Texture2D" uid="uid://ltqe7a7s7p4c" path="res://Art/spoon.png" id="3_1ris8"]
 [ext_resource type="FontFile" uid="uid://bmkc5lpneuknr" path="res://Fonts/PressStart2P-Regular.ttf" id="3_fsjip"]
 
 [node name="inventory_ui_slot" type="Panel"]
@@ -25,9 +26,12 @@ offset_bottom = 16.0
 layout_mode = 2
 
 [node name="item_display" type="Sprite2D" parent="CenterContainer/Panel"]
-scale = Vector2(0.5, 0.5)
+position = Vector2(1.1920929e-07, -0.9999998)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_1ris8")
 
 [node name="Label" type="Label" parent="CenterContainer/Panel"]
+z_index = 3
 clip_contents = true
 custom_minimum_size = Vector2(19, 23)
 layout_mode = 0
@@ -39,3 +43,37 @@ scale = Vector2(0.3, 0.3)
 theme_override_fonts/font = ExtResource("3_fsjip")
 text = "99"
 horizontal_alignment = 2
+
+[node name="ItemButton" type="TextureButton" parent="CenterContainer/Panel"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+disabled = true
+button_mask = 2
+
+[node name="Node" type="Node2D" parent="."]
+visible = false
+z_index = 6
+position = Vector2(8, 5)
+scale = Vector2(0.5, 0.5)
+
+[node name="background2" type="Sprite2D" parent="Node"]
+position = Vector2(17, 12)
+scale = Vector2(2.5, 0.99999994)
+texture = ExtResource("2_uebyi")
+centered = false
+
+[node name="DropButton" type="Button" parent="Node"]
+offset_left = 17.0
+offset_top = 12.0
+offset_right = 57.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("3_fsjip")
+theme_override_font_sizes/font_size = 8
+disabled = true
+text = "DROP"
+flat = true
+
+[connection signal="pressed" from="CenterContainer/Panel/ItemButton" to="." method="_on_texture_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://fqefwmsg3sti"]
+[gd_scene load_steps=14 format=4 uid="uid://fqefwmsg3sti"]
 
 [ext_resource type="Texture2D" uid="uid://bs2bd482fgfp" path="res://Art/TileSet_prototype.png" id="1_xwsac"]
 [ext_resource type="Texture2D" uid="uid://cs2e21xeom7vt" path="res://Art/TileSet_1.png" id="1_y0d6x"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://crios88m4i5w5" path="res://Scenes/Ui/DialogUi.tscn" id="4_adcqc"]
 [ext_resource type="Script" uid="uid://ufw422vmqhys" path="res://Scenes/Ui/DialogUI.gd" id="5_7staa"]
 [ext_resource type="PackedScene" uid="uid://prvnkp8swxfc" path="res://Scenes/Actors/npc.tscn" id="8_fcotr"]
+[ext_resource type="Texture2D" uid="uid://br732rdqdibqk" path="res://Art/light1.png" id="10_ugf0j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y0d6x"]
 texture = ExtResource("1_y0d6x")
@@ -129,3 +130,14 @@ dialog_ui_path = NodePath("../UI_Player/DialogUI")
 
 [node name="Player" parent="YSortLayer" instance=ExtResource("3_dg2g4")]
 position = Vector2(-2, 12)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.67481464, 0.67481464, 0.6748146, 1)
+blend_mode = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = -1
+position = Vector2(-297, -107)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("10_ugf0j")

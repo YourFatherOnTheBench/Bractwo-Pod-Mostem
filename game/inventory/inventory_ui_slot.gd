@@ -3,6 +3,10 @@ extends Panel
 
 @onready var item_visual: Sprite2D = $CenterContainer/Panel/item_display
 @onready var amount_label: Label = $CenterContainer/Panel/Label
+@onready var drop_button: Button = $Node/DropButton
+@onready var item_button: TextureButton = $CenterContainer/Panel/ItemButton
+var clicked: bool = false
+
 
 func update(slot: inventorySlot):
 	if slot == null or slot.item == null:
@@ -13,3 +17,15 @@ func update(slot: inventorySlot):
 		amount_label.visible = true
 		item_visual.texture = slot.item.texture
 		amount_label.text = str(slot.amount)
+
+
+func _on_texture_button_pressed() -> void:
+	
+	if clicked:
+		$Node.visible = true
+		drop_button.disabled = false
+		clicked = not clicked
+	else:
+		$Node.visible = false
+		drop_button.disabled = true
+		clicked = not clicked

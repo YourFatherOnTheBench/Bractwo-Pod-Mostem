@@ -33,7 +33,7 @@ func _process(delta):
 					search_locked = true
 					
 					var roll = rng.randi_range(1, 10)
-					if roll > 4:
+					if roll > 1:
 						var pool = loot_pools.get(district, [])
 						var options = pick_unique_weight(pool, 3)
 						if choice_ui:
@@ -41,6 +41,7 @@ func _process(delta):
 						print("Propozycje z ", district, ":", options)
 					else:
 						print("Szukanie nie udane!")
+						_reset_search_ui()
 						var players: Array = get_tree().get_nodes_in_group("player")
 						if players.size() == 0:
 							print("No player found to give item to")
@@ -85,6 +86,8 @@ func _reset_search_ui():
 		bar.value = 0.0
 	if search_ui:
 		search_ui.visible = false
+	if search_locked:
+		search_locked = false
 		
 		
 func load_json(path):
@@ -152,6 +155,7 @@ func _on_choice_chosen(id: String):
 		print("Item resource not found at", res_path)
 		return
 
+	
 	# Find the player node (assumes player is in group "player").
 	var players: Array = get_tree().get_nodes_in_group("player")
 	if players.size() == 0:
@@ -188,3 +192,4 @@ func _on_choice_chosen(id: String):
 		var ui = player.get_node("Inventory_UI")
 		if ui and ui.has_method("update_slots"):
 			ui.update_slots()
+	_reset_search_ui()
