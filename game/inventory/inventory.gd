@@ -34,6 +34,8 @@ func insert(item: InventoryItem, amount: int = 1) -> bool:
 	return false
 
 
+
+
 # Remove up to `amount` instances of `item` from inventory.
 # Returns number actually removed.
 func remove(item: InventoryItem, amount: int = 1) -> int:

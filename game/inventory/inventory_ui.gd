@@ -2,7 +2,7 @@ extends Control
 
 var inventory: Inventory = null
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
-
+var items: Array 
 
 var is_open: bool = false
 
@@ -17,6 +17,11 @@ func _ready() -> void:
 	update_slots()
 	close()
 
+func UpdateInventory():
+	pass
+	
+
+
 
 func update_slots():
 	if inventory == null:
@@ -28,11 +33,13 @@ func update_slots():
 		items_arr = inventory.get("items")
 	if items_arr == null:
 		return
-
+	print(items_arr)
 	for i in range(min(items_arr.size(), slots.size())):
 		slots[i].update(items_arr[i])
+		slots[i].changeName(str(i))
 	
 func _process(_delta) -> void:
+	
 	if Input.is_action_just_pressed("toggle_inventory"):
 		if is_open:
 			close()

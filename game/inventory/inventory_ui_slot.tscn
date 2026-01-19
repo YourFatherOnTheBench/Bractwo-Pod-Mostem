@@ -50,7 +50,6 @@ offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
-disabled = true
 button_mask = 2
 
 [node name="Node" type="Node2D" parent="."]
